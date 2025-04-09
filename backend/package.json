@@ -1,45 +1,42 @@
 {
-  "name": "fullstack-apollo-express-postgresql-boilerplate",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "SOH-hub-backend",
   "engines": {
-    "node": "10.11.0"
-  },
-  "scripts": {
-    "start": "nodemon --exec babel-node src/index.js",
-    "test:run-server": "TEST_DATABASE_URL=mongodb://localhost:27017/mytestdatabase npm start",
-    "test:execute-test": "TEST_DATABASE_URL=mongodb://localhost:27017/mytestdatabase mocha --require @babel/register 'src/**/*.spec.js'",
-    "test": "echo \"No test specified\" && exit 0"
-  },
-  "keywords": [],
-  "author": "Robin Wieruch <hello@rwieruch.com> (https://www.robinwieruch.de)",
-  "license": "ISC",
-  "devDependencies": {
-    "@babel/core": "^7.1.6",
-    "@babel/node": "^7.0.0",
-    "@babel/preset-env": "^7.1.6",
-    "@babel/register": "^7.0.0",
-    "axios": "^0.18.0",
-    "chai": "^4.2.0",
-    "mocha": "^5.2.0",
-    "nodemon": "^1.18.7",
-    "morgan": "^1.9.1"
+    "node": "18.x",
+    "yarn": "4.6.0"
   },
   "dependencies": {
-    "apollo-server": "^2.2.3",
-    "apollo-server-express": "^2.2.3",
-    "bcrypt": "^3.0.2",
-    "cors": "^2.8.5",
-    "dataloader": "^1.4.0",
-    "dotenv": "^6.1.0",
-    "express": "^4.16.4",
-    "graphql": "^14.0.2",
-    "graphql-iso-date": "^3.6.1",
-    "graphql-resolvers": "^0.3.2",
-    "jsonwebtoken": "^8.4.0",
-    "mongoose": "^5.3.14",
-    "uuid": "^3.3.2",
-    "validator": "^10.9.0"
-  }
+    "apollo-server-express": "^3.13.0",
+    "aws-sdk": "^2.1692.0",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "graphql": "^16.10.0",
+    "graphql-playground-html": "^1.6.30",
+    "i": "^0.3.7",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.15.0",
+    "mongoose": "^8.13.1",
+    "multer": "^1.4.5-lts.2",
+    "nodemon": "^3.1.9",
+    "npm": "^11.2.0",
+    "ws": "^8.18.1"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.3",
+    "@types/express": "^5.0.0",
+    "@types/graphql": "^14.5.0",
+    "@types/jsonwebtoken": "^9",
+    "@types/multer": "^1",
+    "@types/node": "^22.13.10",
+    "@types/ws": "^8",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "dev:watch": "nodemon --watch 'src/**/*.ts' --exec ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "packageManager": "yarn@4.8.1"
 }
