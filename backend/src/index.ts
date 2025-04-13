@@ -31,7 +31,7 @@ console.log("env: ", NODE_ENV);
 server.start().then(async () => {
   await mongoose
     .connect(MONGODB_URI || "mongodb://localhost:27017/test", {
-      serverSelectionTimeoutMS: 2000,
+      serverSelectionTimeoutMS: 10000,
     })
 
     .then(() => console.log("MongoDB connected"))

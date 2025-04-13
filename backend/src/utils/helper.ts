@@ -1,6 +1,8 @@
 import fs from "fs";
-export function sendMessage(msg: string) {
-  msg;
+export async function sendMessage(phone: string, msg: string) {
+  return fetch(
+    `http://web2sms.skytel.mn/apiSend?token=e15685ef093326f258ab67e05ad8835435b4df7e&sendto=${phone}&message=${msg}`
+  );
   // return "hello";
 }
 

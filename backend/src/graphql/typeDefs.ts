@@ -4,31 +4,40 @@ export default gql`
   type Query {
     # user
     me: User
-    listUsers(role: string, name: string): [User]
+    listUsers(role: String, name: String): [User]
     # lesson
-    createLesson(): Lesson
-
+    createLesson(input: LessonInput): Lesson
   }
 
   type Mutation {
     # user
     login(phone: String!, password: String!): String
+    register(
+      phone: String
+      firstname: String
+      lastname: String
+      password: String
+      email: String
+    ): String
+    registerConfirm(otp: String): String
+
+    # file uplaod
+    uploadFile(file: Upload!): String
   }
+
+  scalar Upload
 
   type User {
     _id: ID
     username: String
     phone: String
     email: String
-
-    discipline: String
     status: String
     firstname: String
     lastname: String
     profilePic: String
     role: String
     gender: String
-
     createdAt: String
     updatedAt: String
   }
@@ -53,7 +62,6 @@ export default gql`
     username: String!
     phone: String!
     email: String
-    discipline: String
     status: String
     firstname: String!
     lastname: String!
@@ -62,35 +70,31 @@ export default gql`
     password: String!
     role: String!
   }
+
+  input LessonInput {
+    title: String!
+    description: String!
+    content: String!
+    videoUrl: String!
+    thumbnailUrl: String!
+    duration: Int!
+    createdBy: ID
+    status: String
+    tags: [String]
+    category: String
+  }
 `;
 
 export interface UserInputInterface {
   username: string;
   phone: string;
   email: string;
-  discipline: string;
   status: string;
   firstname: string;
   lastname: string;
   profilePic: string;
   password: string;
   role: string;
-}
-
-export interface PropertyInputInterface {
-  name: string;
-  desc: string;
-  ownerId: string;
-  cameraHub: string;
-  timeCheckArea: number;
-  locationLong: number;
-  locationLat: number;
-  baseLong: number;
-  baseLat: number;
-  map: [
-    {
-      lat: number;
-      long: number;
-    }
-  ];
+  phoneOtp: string;
+  phoneOtpExpire: Date;
 }

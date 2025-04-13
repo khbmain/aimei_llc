@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { GraphQLError } from "graphql";
 import { ContextType } from "../graphql/context";
+import { JWT_SECRET_KEY } from "./constants";
 
 export function authenticate(plainTextPass: string | null, password: string) {
   if (!plainTextPass) return false;
@@ -15,11 +16,11 @@ export const generateToken = (user: {
   _id: string;
   phone: string;
   role: string;
-}) => jwt.sign(user, process.env.JWT_SECRET!, { expiresIn: "1d" });
+}) => jwt.sign(user, JWT_SECRET_KEY!, { expiresIn: "1d" });
 
 export const decodeToken = (token: string) => {
   try {
-    return jwt.verify(token, process.env.JWT_SECRET!);
+    return jwt.verify(token, JWT_SECRET_KEY!);
   } catch (err) {
     console.error(err);
     return null;
@@ -27,14 +28,25 @@ export const decodeToken = (token: string) => {
 };
 
 // access check
+
+export function confirmAccess(ctx: ContextType) {
+  if (!ctx.authenticated || !ctx._id || ctx.exp! < Date.now() / 1000) {
+    throw new GraphQLError("access denied");
+  }
+}
+
 export function authenticatedAccess(ctx: ContextType) {
   if (!ctx._id || !ctx.role) {
     throw new GraphQLError("access denied");
   }
 }
 
-export function sohAccess(ctx: any) {
-  if (!ctx._id || !ctx.role || ctx.role !== "soh" || ctx.role !== "admin") {
+export function teacherAccess(ctx: any) {
+  if (
+    !ctx._id ||
+    !ctx.role ||
+    (ctx.role !== "teacher" && ctx.role !== "admin")
+  ) {
     throw new GraphQLError("access denied");
   }
 }

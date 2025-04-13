@@ -18,8 +18,16 @@ import Blank from './pages/Blank';
 import AppLayout from './layout/AppLayout';
 import { ScrollToTop } from './components/common/ScrollToTop';
 import Home from './pages/Dashboard/Home';
+import { useQuery } from '@apollo/client';
+import { ME } from './context/gql';
+import { useEffect } from 'react';
 
 export default function App() {
+  const { data } = useQuery(ME);
+  useEffect(() => {
+    console.log('data', data);
+  }, [data]);
+
   return (
     <>
       <Router>

@@ -18,6 +18,7 @@ export type ContextType = {
   _id?: string;
   phone?: string;
   role?: string;
+  exp?: number;
   authenticated?: boolean;
   // [key: string]: any;
 };
